@@ -42,10 +42,15 @@ public class MemberService extends DefaultOAuth2UserService {
                 }
         );
         if (findMember.getProvider().equals(providerId)) {
-            return memberDetails.setId(findMember.getId()).setRole(findMember.getRole());
+            return MemberDetails.builder()
+                    .id(findMember.getId())
+                    .name(findMember.getUsername())
+                    .email(findMember.getEmail())
+                    .role(findMember.getRole())
+                    .attributes(memberDetails.getAttributes())
+                    .build();
         } else {
             throw new IllegalStateException("이미 다른 제공자로 가입한 이력이 있습니다.");
         }
     }
-
 }

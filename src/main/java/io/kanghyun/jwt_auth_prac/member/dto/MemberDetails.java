@@ -1,5 +1,6 @@
 package io.kanghyun.jwt_auth_prac.member.dto;
 
+import io.kanghyun.jwt_auth_prac.member.domain.Member;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,20 +12,18 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@Accessors(chain = true)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class MemberDetails implements OAuth2User {
 
-    @Setter
     private Long id;
 
     private String name;
     private String email;
 
-    @Setter
     private Role role;
 
-    @Setter
     public Map<String, Object> attributes;
 
     @Override
@@ -32,10 +31,13 @@ public class MemberDetails implements OAuth2User {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    @Builder
-    public MemberDetails(String name, String email, Map<String, Object> attributes) {
-        this.name = name;
-        this.email = email;
-        this.attributes = attributes;
+    public static MemberDetails from(Member member, Map<String, Object> attributes) {
+        return MemberDetails.builder()
+                .id(member.getId())
+                .name(member.getUsername())
+                .email(member.getEmail())
+                .role(member.getRole())
+                .attributes(attributes)
+                .build();
     }
 }
