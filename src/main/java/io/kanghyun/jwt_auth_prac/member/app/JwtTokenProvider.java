@@ -93,5 +93,4 @@ public class JwtTokenProvider {
     private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(jwtConfiguration.getSecrets().getAppKey().getBytes());
     }
-
 }
