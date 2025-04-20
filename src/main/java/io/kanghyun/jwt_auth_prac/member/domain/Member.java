@@ -37,4 +37,10 @@ public class Member {
         this.email = email;
         this.provider = provider;
     }
+
+    public void updateRole(Role role) {
+        if(this.role != role) {
+            this.role = role;
+        }
+    }
 }

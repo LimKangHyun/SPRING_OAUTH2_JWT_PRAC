@@ -53,4 +53,5 @@ public class MemberService extends DefaultOAuth2UserService {
             throw new IllegalStateException("이미 다른 제공자로 가입한 이력이 있습니다.");
         }
     }
+
 }
